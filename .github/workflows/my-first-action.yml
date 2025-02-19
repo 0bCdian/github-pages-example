@@ -1,0 +1,35 @@
+# Optional name for the workflow, this name is what shows up in the actions tab
+name: GitHub Actions Demo
+# The name that will appear in the "black box" (the workflow instance if you will)
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+# Definitions of events that trigger this workflow
+on:
+  # For example, on pushes...
+  push:
+    # In the main branch
+    branches: [main]
+# The list of jobs this workflow will run
+jobs:
+  # The name of the job
+  Explore-GitHub-Actions:
+    # The machine that will run this job (the os basically)
+    runs-on: ubuntu-latest
+    # The steps of this job
+    steps:
+      # steps run commands in the shell (bash in this case)
+      # They can have names, in this case the first three don't
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+        # This named step "uses" the action "action/checkout" version 4
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        # More unnamed steps
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+        # Another named step
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+        # You get the idea
+      - run: echo "🍏 This job's status is ${{ job.status }}."
